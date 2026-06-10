@@ -7,7 +7,10 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#060d14">
 <title>AIO Juniper Armory Mead OS v3</title>
-<link rel="manifest" href="data:application/json,{&quot;name&quot;:&quot;Juniper Armory Mead OS&quot;,&quot;short_name&quot;:&quot;Mead OS&quot;,&quot;start_url&quot;:&quot;.&quot;,&quot;display&quot;:&quot;standalone&quot;,&quot;background_color&quot;:&quot;#060d14&quot;,&quot;theme_color&quot;:&quot;#060d14&quot;}">
+<link rel="manifest" href="/manifest.json">
+<link rel="apple-touch-icon" href="/icon-192.png">
+<meta name="apple-mobile-web-app-title" content="Mead OS">
+<meta name="description" content="Juniper Armory Mead OS — Complete offline mead brewing reference and batch management.">
 <style>
 /* ============================================================
    RESET & CSS VARIABLES
@@ -3972,26 +3975,9 @@ showHamburger();
      ============================================================ -->
 <script>
 if('serviceWorker' in navigator){
-  // Inline service worker as blob for local file compatibility
-  const swCode=`
-const CACHE='ja-mead-v3';
-const ASSETS=['/'];
-self.addEventListener('install',e=>{
-  e.waitUntil(caches.open(CACHE).then(c=>c.addAll(ASSETS)));
-  self.skipWaiting();
-});
-self.addEventListener('activate',e=>{
-  e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k)))));
-  self.clients.claim();
-});
-self.addEventListener('fetch',e=>{
-  e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request).catch(()=>caches.match('/'))));
-});`;
-  try{
-    const blob=new Blob([swCode],{type:'application/javascript'});
-    const url=URL.createObjectURL(blob);
-    navigator.serviceWorker.register(url).catch(()=>{});
-  }catch(e){}
+  navigator.serviceWorker.register('/sw.js')
+    .then(reg => console.log('SW registered:', reg.scope))
+    .catch(err => console.log('SW registration failed:', err));
 }
 </script>
 </body>
