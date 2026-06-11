@@ -8,7 +8,7 @@
 <meta name="theme-color" content="#060d14">
 <title>AIO Juniper Armory Mead OS v3</title>
 <link rel="manifest" href="manifest.json">
-<link rel="apple-touch-icon" href="/icon-192.png">
+<link rel="apple-touch-icon" href="./icon-192.png">
 <meta name="apple-mobile-web-app-title" content="Mead OS">
 <meta name="description" content="Juniper Armory Mead OS — Complete offline mead brewing reference and batch management.">
 <style>
@@ -3975,7 +3975,7 @@ showHamburger();
      ============================================================ -->
 <script>
 if('serviceWorker' in navigator){
-  navigator.serviceWorker.register('/sw.js')
+  navigator.serviceWorker.register('./sw.js')
     .then(reg => console.log('SW registered:', reg.scope))
     .catch(err => console.log('SW registration failed:', err));
 }
